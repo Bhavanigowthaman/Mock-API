@@ -1,3 +1,124 @@
+//Program to Write data in JSON
+
+package ListOfUsers.ListOfUsers;
+import java.util.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+public class WriteDataToJsonFile {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int n;
+		 String name,age,dob,fname,lname,a1,a2,a3,phone;
+		 Scanner obj=new Scanner(System.in);
+		 System.out.println("Enter the Number of Users Want to update :");
+		 n=obj.nextInt();
+		 JSONObject jsonObject = new JSONObject();
+		 JSONArray array = new JSONArray();
+		 for(int i=0;i<n;i++)
+		 {
+			  System.out.println("Enter the Name :");
+			  name=obj.nextLine();
+			  System.out.println("Enter the age :");
+			  age=obj.nextLine();
+			  System.out.println("Enter the Date of Birth :");
+			  dob=obj.nextLine();
+			  System.out.println("Enter the First name :");
+			  fname=obj.nextLine();
+			  System.out.println("Enter the Last name :");
+			  lname=obj.nextLine();
+			  System.out.println("Enter the Address line 1 :");
+			  a1=obj.nextLine();
+			  System.out.println("Enter the Address line 2 :");
+			  a2=obj.nextLine();
+			  System.out.println("Enter the Address line 3 :");
+			  a3=obj.nextLine();
+			  System.out.println("Enter the phone number :");
+			  phone=obj.nextLine();
+			  jsonObject.put("name",name);
+			  jsonObject.put("age",age);
+			  jsonObject.put("dob",dob);
+		      jsonObject.put("firstName",fname);
+		      jsonObject.put("lastName", lname);
+		      jsonObject.put("address_line1",a1);
+		      jsonObject.put("address_line2",a2);
+		      jsonObject.put("address_line3",a3);
+		      jsonObject.put("phone",phone);
+		      array.add(jsonObject);
+		 }		 
+		 try {
+	         FileWriter file = new FileWriter(".\\JsonFiles\\User.json");
+	         file.write(jsonObject.toJSONString());
+	         file.close();
+	      } catch (IOException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }
+	      System.out.println("JSON file created: "+jsonObject);
+
+	}
+
+}
+
+
+//Program to read data from JSON
+
+package ListOfUsers.ListOfUsers;
+
+import java.io.*;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import  java.lang.*;
+
+
+
+public class ReadDataFromJsonFile {
+
+	public static void main(String[] args) throws IOException, ParseException  {
+		// TODO Auto-generated method stub
+		JSONParser jsonparser=new JSONParser();
+		
+		FileReader reader=new FileReader(".\\JsonFiles\\User.json");
+		
+		Object obj=jsonparser.parse(reader);
+		
+		JSONObject userjsonobj=(JSONObject)obj;
+		
+		JSONArray array=(JSONArray)userjsonobj.get("namelist");
+		
+		for(int i=0;i<array.size();i++)
+		{
+			JSONObject namelist=(JSONObject)array.get(i);
+			String name=(String)namelist.get("name");
+			String age=(String)namelist.get("age");
+			String dob=(String)namelist.get("dob");
+			String fname=(String)namelist.get("firstName");
+			String lname=(String)namelist.get("lastName");
+			String a1=(String)namelist.get("address_line1");
+			String a2=(String)namelist.get("address_line2");
+			String a3=(String)namelist.get("address_line3");
+			String phone=(String)namelist.get("phone");
+			
+			System.out.println("Name:"+name);
+			System.out.println("Age:"+age);
+			System.out.println("DOB:"+dob);
+			System.out.println("First Name:"+fname);
+			System.out.println("Last Name:"+lname);
+			System.out.println("Adress:"+a1);
+			System.out.println(a2);
+			System.out.println(a3);
+			System.out.println("Phone:"+phone);
+		}
+	}
+
+}
+
+
 //Program For Registeration Form
 
 import javax.swing.JFrame;
